@@ -1,198 +1,137 @@
-# AI-Driven-Telecom-Churn-Prediction-Using-Machine-Learning-and-Deep-Learning
-End-to-End AI Framework for Telecom Customer Churn Prediction Using Machine Learning, Deep Learning, and Intelligent Customer Segmentation
 # AI-Driven Telecom Churn Prediction with ML & DL
 
-An end-to-end Artificial Intelligence framework for predicting customer churn in the telecom industry using Machine Learning, Deep Learning, and Customer Segmentation techniques.
+An end-to-end Artificial Intelligence framework for predicting telecom customer churn using Machine Learning, Deep Learning, and customer segmentation techniques.
 
 ---
 
-## 📌 Project Overview
+## Overview
 
-This project was developed for **CSE422 – Artificial Intelligence (BRAC University)**.
+Customer churn directly impacts revenue and retention strategies in the telecom industry. This project builds a complete AI pipeline to:
 
-Customer churn refers to customers discontinuing telecom services, which directly impacts company revenue. The objective of this project is to:
-
-- Identify key drivers of churn
+- Identify key churn drivers
 - Compare supervised ML models
 - Implement a Deep Learning model (MLP)
 - Handle class imbalance
-- Apply unsupervised learning for segmentation
-- Evaluate models using advanced performance metrics
-
-📄 Full Report: See `Final_CSE422_Telco_Churn_Report.pdf`
+- Apply unsupervised segmentation
+- Evaluate performance using advanced metrics
 
 ---
 
-## 📊 Dataset Description
+## Dataset
 
-- **Dataset:** Telco Customer Churn
-- **Total Records:** 7,043 customers
-- **Total Features:** 21 (20 input + 1 target)
-- **Problem Type:** Binary Classification
-- **Target Variable:** Churn (0 = No, 1 = Yes)
-- **Class Distribution:** 5,174 Non-Churn | 1,869 Churn
+- 7,043 customer records
+- 21 features (20 inputs + 1 target)
+- Binary classification problem
+- Imbalanced target distribution
 
-The dataset includes:
-- Demographics
-- Subscription details
-- Internet services
-- Payment methods
-- Billing information
+The dataset includes demographic information, service subscriptions, billing attributes, and payment behavior.
 
 ---
 
-## 🔍 Correlation Analysis
+## Key Insights
 
-A correlation heatmap was generated after one-hot encoding categorical features.
-
-Key Insights:
-- Strong positive correlation with churn:
-  - InternetService_Fiber optic
-  - PaymentMethod_Electronic check
-  - MonthlyCharges
-  - PaperlessBilling
-- Strong negative correlation with churn:
-  - tenure
-  - Contract_Two year
+- Customers with lower tenure are significantly more likely to churn.
+- Fiber optic users and electronic check payments correlate positively with churn.
+- Long-term contracts strongly reduce churn probability.
 
 ![Correlation Heatmap](images/heatmap.png)
 
 ---
 
-## 📦 Data Preprocessing
+## Preprocessing Pipeline
 
-The following preprocessing steps were applied:
-
-- Missing value handling (TotalCharges imputed)
-- One-hot encoding for categorical variables
-- Binary encoding of target variable
+- Missing value handling
+- One-hot encoding for categorical features
 - StandardScaler normalization
 - Stratified 80/20 train-test split
 - Oversampling for imbalance handling
-
-A pipelined approach was used to prevent data leakage and ensure fair evaluation.
-
----
-
-## 📊 Exploratory Data Analysis (EDA)
-
-### Tenure vs Churn
-
-Customers who churned had significantly lower tenure.
-
-![Tenure Boxplot](images/boxplot.png)
+- Fully pipelined workflow to prevent data leakage
 
 ---
 
-## 🤖 Supervised Machine Learning Models
+## Models Implemented
 
-Three models were implemented:
+### Logistic Regression
+- Accuracy: 80.6%
+- ROC-AUC: 0.84
+- Best overall performance
 
-### 1️⃣ Logistic Regression
-- Accuracy: ~80.6%
-- ROC-AUC: ~0.84
-- Best overall balanced performance
+### Decision Tree
+- Accuracy: 79.1%
+- Moderate churn recall
 
-### 2️⃣ Decision Tree
-- Accuracy: ~79%
-- Slightly lower churn recall
-
-### 3️⃣ Deep Learning (MLP)
-- Accuracy: ~78.9%
-- ROC-AUC: ~0.84
-- Tuned with early stopping (49 iterations)
+### Neural Network (MLP)
+- Accuracy: 78.9%
+- Tuned deep learning model with early stopping
 
 ---
 
-## 📊 Model Accuracy Comparison
-
-Logistic Regression achieved the highest accuracy.
+## Model Performance Comparison
 
 ![Model Accuracy Comparison](images/barchart.png)
 
+Logistic Regression delivered the most balanced and reliable results across metrics.
+
 ---
 
-## 📈 Confusion Matrix Analysis
-
-Confusion matrices were generated for all supervised models.
-
-Key Observation:
-- Logistic Regression correctly predicted more churn cases.
-- MLP missed the highest number of churn customers.
-- Decision Tree performed moderately.
+## Confusion Matrix Evaluation
 
 ![Confusion Matrices](images/matrix.png)
 
----
-
-## ⚖️ Class Imbalance Handling
-
-The dataset is imbalanced.
-
-Oversampling was applied to improve churn recall:
-
-- Recall improved to ~67%
-- Accuracy decreased to ~75%
-- Trade-off is expected in imbalanced classification
-
-In churn prediction, recall is often more valuable than raw accuracy.
+Logistic Regression detected more churn customers compared to other models.  
+The Neural Network showed lower churn recall despite similar overall accuracy.
 
 ---
 
-## 🧠 Unsupervised Learning – K-Means Clustering
+## Handling Class Imbalance
 
-K-Means clustering was applied to identify natural customer segments.
+Oversampling was applied to improve minority class detection:
 
-PCA was used for 2D visualization.
+- Churn recall improved to ~67%
+- Overall accuracy decreased to ~75%
+- Trade-off reflects typical imbalance dynamics
 
-Results:
-- Cluster 0 → ~7% churn (low-risk customers)
-- Cluster 1 → ~32% churn (high-risk segment)
-
-![K-Means Clustering (PCA 2D)](images/kmeans.png)
-
-Unsupervised learning provided business insight but was less effective for direct churn prediction compared to supervised models.
+In churn prediction, recall is prioritized over raw accuracy.
 
 ---
 
-## 📈 ROC Curve Comparison
+## Customer Segmentation (Unsupervised Learning)
 
-All models performed significantly better than random guessing.
+K-Means clustering with PCA visualization identified two distinct segments:
+
+- Cluster 0: ~7% churn rate (low risk)
+- Cluster 1: ~32% churn rate (high risk)
+
+![K-Means Clustering](images/kmeans.png)
+
+While supervised learning was superior for prediction, clustering provided valuable business insight.
+
+---
+
+## ROC Curve Comparison
 
 - Logistic Regression: AUC ≈ 0.84
-- MLP: AUC ≈ 0.84
+- Neural Network: AUC ≈ 0.84
 - Decision Tree: AUC ≈ 0.83
 
-Logistic Regression maintained a small but consistent advantage.
+Logistic Regression maintained a consistent performance advantage.
 
 ---
 
-## 🏆 Final Model Comparison
+## Tech Stack
 
-| Model | Accuracy | ROC-AUC | Churn Recall |
-|--------|----------|----------|--------------|
-| Logistic Regression | 80.6% | 0.84 | 55.9% |
-| Decision Tree | 79.1% | 0.84 | 50.5% |
-| Neural Network (MLP) | 78.9% | 0.84 | 48.4% |
-
-### 🥇 Best Performing Model:
-**Logistic Regression**
+- Python
+- Pandas & NumPy
+- Scikit-learn
+- Imbalanced-learn
+- Matplotlib & Seaborn
+- Jupyter Notebook
 
 ---
 
-## 📦 Requirements
+## Installation
 
-```txt
-numpy>=1.23.0
-pandas>=1.5.0
-matplotlib>=3.6.0
-seaborn>=0.12.0
-scikit-learn>=1.2.0
-imbalanced-learn>=0.10.0
-joblib>=1.2.0
-jupyter>=1.0.0
-notebook>=6.5.0
-
+```bash
 git clone https://github.com/yourusername/your-repo-name.git
 cd your-repo-name
 pip install -r requirements.txt
